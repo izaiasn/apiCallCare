@@ -8,6 +8,8 @@ public record DadosCadastrarEquipamento(
 
          Long id,
          @NotBlank
+         String idunidade,
+         @NotBlank
          String modelo,
          @NotBlank
          String tipoequipamento,

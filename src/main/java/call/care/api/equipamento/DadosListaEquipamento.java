@@ -7,6 +7,8 @@ public record DadosListaEquipamento(Long id,
 
                                     String modelo,
 
+                                    String idunidade,
+
                                     String tipoequipamento,
 
                                     String fabricante,
@@ -24,7 +26,7 @@ public record DadosListaEquipamento(Long id,
                                     Boolean ativo) {
 
     public DadosListaEquipamento (Equipamento equipamento){
-        this(equipamento.getId(), equipamento.getModelo(), equipamento.getTipoequipamento(), equipamento.getFabricante(),
+        this(equipamento.getId(),  equipamento.getModelo(), equipamento.getIdunidade() , equipamento.getTipoequipamento(), equipamento.getFabricante(),
                 equipamento.getModalidade(), equipamento.getNumeroserie(), equipamento.getCodigoequipamento(),
                 equipamento.getDatainstalacao(), equipamento.getHora(), equipamento.getAtivo());
     }
