@@ -11,7 +11,13 @@ public record DadosAtualizacaoChamados(
 
         String email,
 
+        Statuschamado statuschamado,
+
         String telefone,
+
+        Statusatendimento statusatendimento,
+
+        String descricao,
 
         Boolean ativo
 ) {

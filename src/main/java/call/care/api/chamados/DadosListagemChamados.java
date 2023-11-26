@@ -19,6 +19,8 @@ public record DadosListagemChamados(
 
         String telefone,
 
+        Statusatendimento statusatendimento,
+
         String especialidade,
 
         String idequipamento,
@@ -35,6 +37,8 @@ public record DadosListagemChamados(
 
         String codigoequipamento,
 
+        Statuschamado statuschamado,
+
         String dataabertura,
 
         String horaioabertura,
@@ -43,16 +47,18 @@ public record DadosListagemChamados(
 
         String horaiofechamento,
 
+        String descricao,
+
         Boolean ativo
 
 ) {
 
     public DadosListagemChamados(Chamados chamados){
         this(chamados.getIdchamados(), chamados.getIdunidade(),chamados.getUnidade(),chamados.getIdpessoa(),
-                chamados.getNome(), chamados.getEmail(),chamados.getTelefone(), chamados.getEspecialidade(),
+                chamados.getNome(), chamados.getEmail(),chamados.getTelefone(), chamados.getStatusatendimento(),  chamados.getEspecialidade(),
                 chamados.getIdequipamento(), chamados.getModelo(), chamados.getTipoequipamento(),
                 chamados.getFabricante(), chamados.getModalidade(),chamados.getNumeroserie(),
-                chamados.getCodigoequipamento(), chamados.getDataabertura(),chamados.getHoraioabertura(),
-                chamados.getDatafechamento(), chamados.getHoraiofechamento(),chamados.getAtivo());
+                chamados.getCodigoequipamento(), chamados.getStatuschamado() ,chamados.getDataabertura(),chamados.getHoraioabertura(),
+                chamados.getDatafechamento(), chamados.getHoraiofechamento() , chamados.getDescricao(),chamados.getAtivo());
     }
 }

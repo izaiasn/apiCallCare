@@ -5,14 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
 
 @Table(name = "chamados")
 @Entity(name= "Chamados")
@@ -38,6 +32,9 @@ public class Chamados {
 
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
+    private Statusatendimento statusatendimento;
+
     private String especialidade;
 
     private String idequipamento;
@@ -54,6 +51,9 @@ public class Chamados {
 
     private String codigoequipamento;
 
+    @Enumerated(EnumType.STRING)
+    private Statuschamado statuschamado;
+
     private String dataabertura;
 
     private String horaioabertura;
@@ -61,6 +61,8 @@ public class Chamados {
     private String datafechamento;
 
     private String horaiofechamento;
+
+    private String descricao;
 
     private Boolean ativo;
 
@@ -72,6 +74,7 @@ public class Chamados {
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
+        this.statusatendimento = dados.statusatendimento();
         this.especialidade = dados.especialidade();
         this.idequipamento = dados.idequipamento();
         this.modelo = dados.modelo();
@@ -80,11 +83,12 @@ public class Chamados {
         this.modalidade = dados.modalidade();
         this.numeroserie = dados.numeroserie();
         this.codigoequipamento = dados.codigoequipamento();
-        this.dataabertura = dados.dataabertura();
-        this.horaioabertura = dados.horaioabertura();
+        this.statuschamado = dados.statuschamado();
+        this.dataabertura = LocalDate.now().toString();
+        this.horaioabertura = LocalTime.now().toString();
         this.datafechamento = dados.datafechamento();
         this.horaiofechamento = dados.horaiofechamento();
-
+        this.descricao = dados.descricao();
     }
 
     public void atualizarInformacoes(DadosAtualizacaoChamados dados) {
@@ -101,6 +105,19 @@ public class Chamados {
         if (dados.telefone()!= null){
             this.telefone = dados.telefone();
         }
+
+        if (dados.statusatendimento()!= null){
+            this.statusatendimento = dados.statusatendimento();
+        }
+
+        if (dados.statuschamado()!= null){
+            this.statuschamado = dados.statuschamado();
+        }
+
+        if (dados.descricao()!= null){
+            this.descricao = dados.descricao();
+        }
+
     }
 
     public void fechar() {
@@ -108,8 +125,6 @@ public class Chamados {
         this.ativo=false;
         this.datafechamento= LocalDate.now().toString();
         this.horaiofechamento = LocalTime.now().toString();
-
-
 
     }
 }

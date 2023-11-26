@@ -1,6 +1,7 @@
 package call.care.api.chamados;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroChamados(
 
@@ -17,6 +18,8 @@ public record DadosCadastroChamados(
         String email,
         @NotBlank
         String telefone,
+        @NotNull
+        Statusatendimento statusatendimento,
         @NotBlank
         String especialidade,
         @NotBlank
@@ -25,6 +28,8 @@ public record DadosCadastroChamados(
         String modelo,
         @NotBlank
         String tipoequipamento,
+        @NotNull
+        Statuschamado statuschamado,
         @NotBlank
         String fabricante,
         @NotBlank
@@ -33,14 +38,16 @@ public record DadosCadastroChamados(
         String numeroserie,
         @NotBlank
         String codigoequipamento,
-        @NotBlank
+
         String dataabertura,
-        @NotBlank
+
         String horaioabertura,
         @NotBlank
         String datafechamento,
         @NotBlank
         String horaiofechamento,
+        @NotBlank
+        String descricao,
         @NotBlank
         String ativo
 )
