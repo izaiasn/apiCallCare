@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,27 +22,36 @@ public class ChamadoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroChamados dados)
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroChamados dados,
+                                    UriComponentsBuilder uriBilder)
     {
-        repository.save(new Chamados(dados));
+        var chamados = new Chamados(dados);
+        repository.save(chamados);
+        var uri = uriBilder.path("/chamados/{idchamados}").buildAndExpand(chamados.getIdchamados()).toUri();
+        return ResponseEntity.created(uri).body(new  DadosDetalhamentoChamados(chamados));
 
     }
     @GetMapping
-    public Page<DadosListagemChamados> Listar(@PageableDefault(size = 20, sort = {"idchamados"}) Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemChamados::new);
+    public ResponseEntity<Page<DadosListagemChamados>> Listar(@PageableDefault(size = 20, sort = {"idchamados"}) Pageable paginacao){
+        var page =  repository.findAll(paginacao).map(DadosListagemChamados::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoChamados dados){
-        var chamado = repository.getReferenceById(dados.idchamados());
-        chamado.atualizarInformacoes(dados);
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoChamados dados){
+        var chamados = repository.getReferenceById(dados.idchamados());
+        chamados.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new  DadosDetalhamentoChamados(chamados));
     }
     @DeleteMapping("/{idchamados}")
     @Transactional
-    public void  fechar(@PathVariable Long idchamados){
+    public ResponseEntity fechar(@PathVariable Long idchamados){
         var chamado = repository.getReferenceById(idchamados);
         chamado.fechar();
+
+        return  ResponseEntity.noContent().build();
 
 
 

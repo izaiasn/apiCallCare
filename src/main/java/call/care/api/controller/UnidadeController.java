@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,23 +24,27 @@ public class UnidadeController {
     }
 
     @GetMapping
-    public Page<DadosListagemUnidade> listar(@PageableDefault(size = 10, sort = {"unidade"}) Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemUnidade::new);
+    public ResponseEntity <Page<DadosListagemUnidade>> listar(@PageableDefault(size = 10, sort = {"unidade"}) Pageable paginacao){
+        var page = repository.findAll(paginacao).map(DadosListagemUnidade::new);
+        return ResponseEntity.ok(page);
 
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoUnidade dados){
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoUnidade dados){
         var unidade = repository.getReferenceById(dados.id());
         unidade.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosDetalharUnidade(unidade));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void Excluir(@PathVariable Long id){
+    public ResponseEntity Excluir(@PathVariable Long id){
         var unidade = repository.getReferenceById(id);
         unidade.desativar();
+        return ResponseEntity.noContent().build();
     }
 
 
