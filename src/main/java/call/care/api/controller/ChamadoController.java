@@ -26,7 +26,7 @@ public class ChamadoController {
 
     }
     @GetMapping
-    public Page<DadosListagemChamados> Listar(@PageableDefault(size = 10, sort = {"idchamados"}) Pageable paginacao){
+    public Page<DadosListagemChamados> Listar(@PageableDefault(size = 20, sort = {"idchamados"}) Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemChamados::new);
     }
 

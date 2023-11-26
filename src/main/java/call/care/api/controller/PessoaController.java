@@ -26,7 +26,7 @@ public class PessoaController {
     }
 
     @GetMapping
-    public Page<DadosListagemPessoa> listar(@PageableDefault(size= 10, sort={"Nome"}) Pageable paginacao){
+    public Page<DadosListagemPessoa> listar(@PageableDefault(size= 10, sort={"id"}) Pageable paginacao){
         return repository.findAllByativoTrue(paginacao).map(DadosListagemPessoa::new);
 
     }
