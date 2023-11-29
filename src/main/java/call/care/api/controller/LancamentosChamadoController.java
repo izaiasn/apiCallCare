@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("lancamentos")
@@ -23,8 +24,14 @@ public class LancamentosChamadoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar (@RequestBody @Valid DadosCadastroLancamento dados){
+    public ResponseEntity cadastrar (@RequestBody @Valid DadosCadastroLancamento dados, UriComponentsBuilder uriBuilder){
+
+        var lancamento = new Lancamentos(dados);
         repository.save(new Lancamentos(dados));
+
+        var uri = uriBuilder.path("/lancamentos/{idlancamentos}").buildAndExpand(lancamento.getIdlancamentos()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoLancamento(lancamento));
     }
 
     @GetMapping

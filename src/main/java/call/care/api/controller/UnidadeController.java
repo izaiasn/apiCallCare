@@ -10,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("unidade")
@@ -19,8 +21,14 @@ public class UnidadeController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroUnidade dados){
-        repository.save(new Unidade(dados));
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUnidade dados, UriComponentsBuilder uriBuilder){
+        var unidade = new Unidade(dados);
+        repository.save(unidade);
+
+
+        var uri  = uriBuilder.path("/unidade/{id}").buildAndExpand(unidade.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalharUnidade(unidade));
     }
 
     @GetMapping
