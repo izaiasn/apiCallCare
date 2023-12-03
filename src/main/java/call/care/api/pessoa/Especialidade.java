@@ -9,6 +9,6 @@ public enum Especialidade {
     ENFERMEIRO,
     GESTOR,
     ASSISTENTE,
-    AUXILIAR;
+    AUXILIAR
 
 }

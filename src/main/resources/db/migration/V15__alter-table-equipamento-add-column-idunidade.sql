@@ -1,0 +1,1 @@
+alter table equipamento add idunidade bigint not null;

@@ -5,6 +5,7 @@ import call.care.api.chamados.DadosDetalhamentoChamados;
 import call.care.api.chamados.DadosListagemChamados;
 import call.care.api.endereco.Endereco;
 import call.care.api.pessoa.*;
+import call.care.api.unidade.DadosDetalharUnidade;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,7 +59,11 @@ public class PessoaController {
         var pessoa = repository.getReferenceById(id);
         pessoa.excluir();
         return  ResponseEntity.noContent().build();
+    }
 
-
+    @GetMapping("/{id}")
+    public ResponseEntity dedetalhar(@PathVariable Long id) {
+        var pessoa = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoPessoa (pessoa));
     }
 }

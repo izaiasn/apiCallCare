@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -24,8 +25,11 @@ public class EquipamentoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastrarEquipamento dados) {
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastrarEquipamento dados, UriComponentsBuilder uriBuilder) {
+        var equipamento = new Equipamento(dados);
         repository.save(new Equipamento(dados));
+        var uri = uriBuilder.path(("equipamento/{id}")).buildAndExpand(equipamento.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoEquipamento(equipamento));
     }
 // Por ser um metodo de listar não utiliza o post mas Page
 //    Para fazer a consulta http://localhost:8080/equipamento?size=1&page=2
@@ -52,11 +56,11 @@ public class EquipamentoController {
         var equipamento = repository.getReferenceById(id);
         equipamento.excluir();
         return  ResponseEntity.noContent().build();
-
-
-
-
-
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity dedetalhar(@PathVariable Long id) {
+        var equipamento = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoEquipamento(equipamento));
     }
 
 

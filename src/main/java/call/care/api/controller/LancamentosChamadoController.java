@@ -3,6 +3,7 @@ package call.care.api.controller;
 
 
 import call.care.api.chamados.DadosDetalhamentoChamados;
+import call.care.api.equipamento.DadosDetalhamentoEquipamento;
 import call.care.api.lancamento.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -56,6 +57,13 @@ public class LancamentosChamadoController {
         var lancamento = repository.getReferenceById(idlancamentos);
         lancamento.excluir();
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity dedetalhar(@PathVariable Long id) {
+        var lancamentos = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoLancamento(lancamentos));
     }
 
 

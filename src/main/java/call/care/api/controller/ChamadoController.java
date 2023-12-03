@@ -53,7 +53,11 @@ public class ChamadoController {
 
         return  ResponseEntity.noContent().build();
 
+    }
 
-
+    @GetMapping("/{id}")
+    public ResponseEntity dedetalhar(@PathVariable Long id) {
+        var chamados = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoChamados(chamados));
     }
 }

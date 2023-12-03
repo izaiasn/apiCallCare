@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record DadosCadastroPessoa(
-
+                                  @NotBlank
+                                  String idunidade,
                                   @NotBlank
                                   String nome,
                                   @NotBlank

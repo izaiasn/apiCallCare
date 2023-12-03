@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Pessoa {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String idunidade;
     private String nome;
     private String telefone;
     private String email;
@@ -29,6 +30,7 @@ public class Pessoa {
     public Pessoa(DadosCadastroPessoa dados) {
 
         this.ativo = true;
+        this.idunidade = dados.idunidade();
         this.nome = dados.nome();
         this.telefone = dados.telefone();
         this.email = dados.email();
@@ -41,8 +43,16 @@ public class Pessoa {
     public void atualizarInformacoes(DadosAtualizacaoPessoa dados) {
         if (dados.nome()!= null  ){
             this.nome= dados.nome();
-
         }
+
+        if (dados.email()!= null  ){
+            this.email= dados.email();
+        }
+
+        if (dados.idunidade()!= null  ){
+            this.idunidade= dados.idunidade();
+        }
+
         if (dados.telefone()!= null  ){
             this.telefone= dados.telefone();
 

@@ -1,5 +1,6 @@
 package call.care.api.controller;
 
+import call.care.api.chamados.DadosDetalhamentoChamados;
 import call.care.api.unidade.*;
 import jakarta.validation.Valid;
 
@@ -53,6 +54,12 @@ public class UnidadeController {
         var unidade = repository.getReferenceById(id);
         unidade.desativar();
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity dedetalhar(@PathVariable Long id) {
+        var unidade = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalharUnidade(unidade));
     }
 
 
