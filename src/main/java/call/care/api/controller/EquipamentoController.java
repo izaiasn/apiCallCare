@@ -1,19 +1,14 @@
 package call.care.api.controller;
-import call.care.api.equipamento.*;
-import call.care.api.pessoa.DadosAtualizacaoPessoa;
+import call.care.api.domain.equipamento.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("equipamento")

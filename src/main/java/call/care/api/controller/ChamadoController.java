@@ -1,6 +1,7 @@
 package call.care.api.controller;
 
-import call.care.api.chamados.*;
+import call.care.api.domain.chamados.*;
+import call.care.api.domain.chamados.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("chamados")
@@ -28,7 +27,7 @@ public class ChamadoController {
         var chamados = new Chamados(dados);
         repository.save(chamados);
         var uri = uriBilder.path("/chamados/{idchamados}").buildAndExpand(chamados.getIdchamados()).toUri();
-        return ResponseEntity.created(uri).body(new  DadosDetalhamentoChamados(chamados));
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoChamados(chamados));
 
     }
     @GetMapping

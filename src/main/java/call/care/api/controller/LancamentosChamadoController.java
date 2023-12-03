@@ -2,9 +2,8 @@ package call.care.api.controller;
 
 
 
-import call.care.api.chamados.DadosDetalhamentoChamados;
-import call.care.api.equipamento.DadosDetalhamentoEquipamento;
-import call.care.api.lancamento.*;
+import call.care.api.domain.lancamento.*;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

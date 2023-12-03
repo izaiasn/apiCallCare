@@ -1,11 +1,7 @@
 package call.care.api.controller;
 
 
-import call.care.api.chamados.DadosDetalhamentoChamados;
-import call.care.api.chamados.DadosListagemChamados;
-import call.care.api.endereco.Endereco;
-import call.care.api.pessoa.*;
-import call.care.api.unidade.DadosDetalharUnidade;
+import call.care.api.domain.pessoa.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,10 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("pessoa")
