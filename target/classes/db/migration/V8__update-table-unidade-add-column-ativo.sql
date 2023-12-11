@@ -1,0 +1,1 @@
+update pessoa set ativo =1;

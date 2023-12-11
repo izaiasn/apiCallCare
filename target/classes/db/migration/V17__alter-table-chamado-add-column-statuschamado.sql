@@ -1,0 +1,1 @@
+alter table chamados add statuschamado varchar(40) not null;
